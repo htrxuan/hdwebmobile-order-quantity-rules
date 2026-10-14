@@ -31,6 +31,9 @@ This plugin closes that by re-checking every product's total quantity in the car
 * Rules apply per simple product, not per-variation
 * No per-customer-role exceptions in this version
 
+= Enjoying this plugin? =
+If it helps your site, please consider [leaving an honest review on WordPress.org](https://wordpress.org/support/plugin/hdwebmobile-order-quantity-rules/reviews/#new-post) -- it helps other WordPress users find it. Found a problem or have an idea? Please [open a support topic](https://wordpress.org/support/plugin/hdwebmobile-order-quantity-rules/) first so it can be fixed.
+
 == Installation ==
 
 1. Upload the plugin files to the `/wp-content/plugins/hdwebmobile-order-quantity-rules` directory, or install the plugin through the WordPress plugins screen directly.
