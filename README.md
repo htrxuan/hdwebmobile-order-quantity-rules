@@ -12,7 +12,7 @@ Sets a store-wide minimum, maximum, and order-multiple ("must be ordered in pack
 
 ## Why this plugin exists
 
-Several competing minimum/maximum order quantity plugins enforced their rules only in the cart page's own JavaScript and in a single add-to-cart check, but never re-validated the cart at the point an order is actually allowed to proceed (CWE-602, Client-Side Enforcement of Server-Side Security). Editing a cart-item quantity directly -- a raw "update cart" request, or a call to the block-based Store API's own cart-update endpoint -- skipped the rule entirely.
+A common flaw in min/max quantity plugins: enforcing rules only in the cart page's own JavaScript and in a single add-to-cart check, but never re-validating the cart at the point an order is actually allowed to proceed (CWE-602, Client-Side Enforcement of Server-Side Security). Editing a cart-item quantity directly -- a raw "update cart" POST, or the block-based Store API's own cart-update endpoint -- skips the rule entirely.
 
 This plugin closes that by re-checking every product's total quantity in the cart at `woocommerce_check_cart_items`, the one hook WooCommerce itself fires on every cart page load, at classic checkout, and inside the Store API's own cart and checkout processing alike. A quantity that only ever got into the cart by skipping the add-to-cart check is still caught there, every single time -- there is no path to a completed order that bypasses it.
 

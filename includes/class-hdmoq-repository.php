@@ -10,14 +10,13 @@ if (!defined('ABSPATH')) {
  * Resolves the effective min/max/step quantity rule for a product, and is the single place
  * that actually validates a requested quantity against it.
  *
- * Several competing "minimum/maximum order quantity" plugins enforced their rules only in the
- * cart page's own JavaScript (disabling the quantity field's +/- buttons, greying out an
- * "Update Cart" button) and in a plain `woocommerce_add_to_cart_validation` check -- but never
- * re-validated at the point an order is actually allowed to proceed. That left the classic
- * "skip the JS" bypass (CWE-602, Client-Side Enforcement of Server-Side Security) wide open:
- * add the product with a valid quantity, then edit the cart-item quantity directly via a raw
- * `update_cart_action` POST or the Store API's own cart-update endpoint, and the rule was
- * never checked again.
+ * The risk this guards against: enforcing min/max rules only in the cart page's JavaScript
+ * (disabling the +/- buttons, greying out "Update Cart") and in a plain
+ * `woocommerce_add_to_cart_validation` check, but never re-validating at the point an order is
+ * actually allowed to proceed. That leaves the classic "skip the JS" bypass (CWE-602,
+ * Client-Side Enforcement of Server-Side Security) open: add the product with a valid
+ * quantity, then edit the cart-item quantity via a raw `update_cart_action` POST or the Store
+ * API's cart-update endpoint, and the rule is never checked again.
  *
  * This plugin closes that by hooking `woocommerce_check_cart_items` (see HDMOQ_Frontend) --
  * the one authoritative re-validation point WooCommerce itself calls on every cart page load
